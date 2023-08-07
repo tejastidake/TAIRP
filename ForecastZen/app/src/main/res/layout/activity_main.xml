@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/morning_background"
+    android:background="@drawable/clear_background"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,46 +18,55 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.5"
             android:layout_margin="15dp"
+            android:alpha="0.5"
             app:cardCornerRadius="15dp"
             app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/editText"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:drawableLeft="@drawable/ic_baseline_search_24"
-                    android:hint="Search Location"
-                    android:padding="10dp"
-                    android:textColorHint="#625757"
-                    android:textColor="#000000"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusBottomStart="15dp"
+                    app:boxCornerRadiusTopEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" >
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <EditText
+                        android:id="@+id/searchBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="25"
+                        android:padding="10dp"
+                        android:textColorHint="#625757"
+                        android:hint="Search Location"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.cardview.widget.CardView>
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="25dp"
             android:text="Nashik"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="50dp"
             app:fontFamily="serif"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,43 +74,67 @@
 
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="45°"
+            android:layout_marginHorizontal="10dp"
+            android:text="IN"
+            android:textSize="20dp"
+            app:fontFamily="sans-serif"
+            app:layout_constraintStart_toEndOf="@+id/city"
+            app:layout_constraintTop_toTopOf="@+id/city" />
+
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:textSize="125dp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:text="25.4°"
+            android:textSize="90dp"
+            app:layout_constraintStart_toStartOf="@+id/city"
+            app:layout_constraintTop_toBottomOf="@+id/city" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintBottom_toBottomOf="@+id/temp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView">
+            app:layout_constraintStart_toEndOf="@+id/temp"
+            app:layout_constraintTop_toTopOf="@+id/city">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/forecast_zen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/splash_screen_animation"/>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Clear"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintEnd_toEndOf="@+id/animation"
+                app:layout_constraintStart_toStartOf="@+id/animation"
+                app:layout_constraintTop_toBottomOf="@+id/animation" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moderate Light"
+                app:layout_constraintEnd_toEndOf="@+id/animation"
+                app:layout_constraintStart_toStartOf="@+id/animation"
+                app:layout_constraintTop_toBottomOf="@+id/type" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,17 +142,17 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Max: "
             android:layout_marginStart="10dp"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:text="Max: "
+            app:layout_constraintStart_toStartOf="@+id/temp"
+            app:layout_constraintTop_toBottomOf="@+id/temp" />
 
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/max_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="52°"
+            android:text="24.6°"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -129,31 +162,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Min: "
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
+            app:layout_constraintBottom_toBottomOf="@+id/min_temp"
+            app:layout_constraintEnd_toStartOf="@+id/min_temp"
+            app:layout_constraintTop_toTopOf="@+id/min_temp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/min_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="38°"
             android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:text="27.3°"
+            app:layout_constraintEnd_toEndOf="@+id/temp"
+            app:layout_constraintTop_toBottomOf="@+id/temp" />
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:alpha="0.5"
+            app:cardCornerRadius="35dp"
             app:cardElevation="10dp"
-            app:cardCornerRadius="25dp"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="@+id/cardView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4">
 
 
@@ -208,8 +239,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="15dp"
-            android:alpha="0.5"
             app:cardCornerRadius="25dp"
+            android:alpha="0.5"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -263,7 +294,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
-
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/sunrise_sunset_animation"
                     android:layout_width="wrap_content"
@@ -274,7 +304,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/sunrise_sunset_animation" />
+                    app:lottie_rawRes="@raw/sunrise_sunset_animation"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -291,6 +321,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView6"
                 android:layout_width="0dp"
@@ -302,50 +333,50 @@
                 app:cardCornerRadius="25dp"
                 app:cardElevation="5dp">
 
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/wind_animation"
+                    <ImageView
+                        android:id="@+id/wind_icon"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="50dp"
                         android:layout_margin="15dp"
                         android:scaleType="centerInside"
+                        android:src="@drawable/wind"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/wind_speed_animation" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/wind_speed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3.4"
                         app:layout_constraintEnd_toStartOf="@+id/textView12"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="@+id/wind_animation"
-                        app:layout_constraintTop_toBottomOf="@+id/wind_animation" />
+                        app:layout_constraintStart_toStartOf="@+id/wind_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/wind_icon" />
 
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" m/s"
-                        app:layout_constraintEnd_toEndOf="@+id/wind_animation"
-                        app:layout_constraintStart_toEndOf="@id/textView15"
-                        app:layout_constraintTop_toBottomOf="@+id/wind_animation" />
+                        android:text=" km/h"
+                        app:layout_constraintEnd_toEndOf="@+id/wind_icon"
+                        app:layout_constraintStart_toEndOf="@id/wind_speed"
+                        app:layout_constraintTop_toBottomOf="@+id/wind_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Wind"
                         app:layout_constraintEnd_toEndOf="@+id/textView12"
-                        app:layout_constraintStart_toStartOf="@+id/textView15"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                        app:layout_constraintStart_toStartOf="@+id/wind_speed"
+                        app:layout_constraintTop_toBottomOf="@+id/wind_speed" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -366,48 +397,48 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent">                    >
 
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/humidity_animation"
+                    <ImageView
+                        android:id="@+id/humidity_icon"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="50dp"
                         android:layout_margin="15dp"
                         android:scaleType="centerInside"
+                        android:src="@drawable/humidity"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/humidity_animation" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/humidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="60"
                         app:layout_constraintEnd_toStartOf="@+id/textView17"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="@+id/humidity_animation"
-                        app:layout_constraintTop_toBottomOf="@+id/humidity_animation" />
+                        app:layout_constraintStart_toStartOf="@+id/humidity_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/humidity_icon" />
 
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" %"
-                        app:layout_constraintEnd_toEndOf="@+id/humidity_animation"
-                        app:layout_constraintStart_toEndOf="@id/textView16"
-                        app:layout_constraintTop_toBottomOf="@+id/humidity_animation" />
+                        app:layout_constraintEnd_toEndOf="@+id/humidity_icon"
+                        app:layout_constraintStart_toEndOf="@id/humidity"
+                        app:layout_constraintTop_toBottomOf="@+id/humidity_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Humidity"
                         app:layout_constraintEnd_toEndOf="@+id/textView17"
-                        app:layout_constraintStart_toStartOf="@+id/textView16"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                        app:layout_constraintStart_toStartOf="@+id/humidity"
+                        app:layout_constraintTop_toBottomOf="@+id/humidity" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -431,51 +462,233 @@
                     android:layout_height="match_parent">
 
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/pressure_animation"
+                    <ImageView
+                        android:id="@+id/pressure_icon"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="50dp"
                         android:layout_margin="15dp"
                         android:scaleType="centerInside"
+                        android:src="@drawable/pressure"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/pressure_animation" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/pressure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1023"
                         app:layout_constraintEnd_toStartOf="@+id/textView14"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="@+id/pressure_animation"
-                        app:layout_constraintTop_toBottomOf="@+id/pressure_animation" />
+                        app:layout_constraintStart_toStartOf="@+id/pressure_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/pressure_icon" />
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" hPa"
-                        app:layout_constraintEnd_toEndOf="@+id/pressure_animation"
-                        app:layout_constraintStart_toEndOf="@id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/pressure_animation" />
+                        app:layout_constraintEnd_toEndOf="@+id/pressure_icon"
+                        app:layout_constraintStart_toEndOf="@id/pressure"
+                        app:layout_constraintTop_toBottomOf="@+id/pressure_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pressure"
                         app:layout_constraintEnd_toEndOf="@+id/textView14"
-                        app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                        app:layout_constraintStart_toStartOf="@+id/pressure"
+                        app:layout_constraintTop_toBottomOf="@+id/pressure" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView9"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:alpha="0.5"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/cloudiness_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cloudiness"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/clouds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="89"
+                        app:layout_constraintEnd_toStartOf="@+id/textView15"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/cloudiness_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/cloudiness_icon" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" %"
+                        app:layout_constraintEnd_toEndOf="@+id/cloudiness_icon"
+                        app:layout_constraintStart_toEndOf="@id/clouds"
+                        app:layout_constraintTop_toBottomOf="@+id/cloudiness_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cloudiness"
+                        app:layout_constraintEnd_toEndOf="@+id/textView15"
+                        app:layout_constraintStart_toStartOf="@+id/clouds"
+                        app:layout_constraintTop_toBottomOf="@+id/clouds" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView10"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:alpha="0.5"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/feels_like_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/feels_like"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/feels_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="26"
+                        app:layout_constraintEnd_toStartOf="@+id/textView16"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/feels_like_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/feels_like_icon" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" °"
+                        app:layout_constraintEnd_toEndOf="@+id/feels_like_icon"
+                        app:layout_constraintStart_toEndOf="@id/feels_like"
+                        app:layout_constraintTop_toBottomOf="@+id/feels_like_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feels Like"
+                        app:layout_constraintEnd_toEndOf="@+id/textView16"
+                        app:layout_constraintStart_toStartOf="@+id/feels_like"
+                        app:layout_constraintTop_toBottomOf="@+id/feels_like" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView11"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:alpha="0.5"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/visibility_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/visibility"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/visibility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        app:layout_constraintEnd_toStartOf="@+id/textView18"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/visibility_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/visibility_icon" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" km"
+                        app:layout_constraintEnd_toEndOf="@+id/visibility_icon"
+                        app:layout_constraintStart_toEndOf="@id/visibility"
+                        app:layout_constraintTop_toBottomOf="@+id/visibility_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Visibility"
+                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintStart_toStartOf="@+id/visibility"
+                        app:layout_constraintTop_toBottomOf="@+id/visibility" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </GridLayout>
 
@@ -486,11 +699,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="50dp"
             android:alpha="0.5"
             app:cardCornerRadius="25dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gridLayout">
@@ -533,7 +744,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/temperature_animation" />
+                    app:lottie_rawRes="@raw/temperature_animation"/>
 
 
                 <TextView
@@ -564,36 +775,33 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation1"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="300dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:scaleType="fitStart"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/night_animation" />
+            app:lottie_loop="true"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation2"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="500dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:scaleType="fitStart"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/rain_animation"/>
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation3"
@@ -601,14 +809,14 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
+            android:visibility="gone"
             android:scaleType="fitStart"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lightning_animation"/>
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation4"
@@ -616,14 +824,56 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
+            android:visibility="gone"
+            android:scaleType="fitStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:alpha="0.5"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation6"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:alpha="0.5"
+            android:visibility="gone"
             android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/wind_animation"/>
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:id="@+id/developer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="~Developed By Tejas Tidake"
+            android:gravity="center"
+            android:layout_marginVertical="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

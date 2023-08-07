@@ -4,7 +4,26 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable-v24/afternoon_background.xml" value="0.1" />
-        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_main.xml" value="0.23894348894348894" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/afternoon_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/background_card.xml" value="0.162" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/clear_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/dark_mode_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/early_morning_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/evening_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.112" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/midnight_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/morning_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/night_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/rain_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/snow_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/strom_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/sunrise_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/thunder_background.xml" value="0.21" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/twilight_background.xml" value="0.199" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_splash_screen.xml" value="0.20260416666666667" />
       </map>
     </option>
