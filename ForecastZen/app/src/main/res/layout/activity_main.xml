@@ -5,8 +5,8 @@
     android:id="@+id/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/clear_background"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,38 +26,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/search_box"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_box"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginBottom="5dp"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:endIconMode="clear_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <EditText
+                    android:id="@+id/searchBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginBottom="5dp"
-                    app:boxCornerRadiusBottomEnd="15dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusTopStart="15dp"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
+                    android:layout_height="match_parent"
+                    android:hint="Search Location"
+                    android:maxLength="25"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColorHint="#625757" />
 
-
-                    <EditText
-                        android:id="@+id/searchBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:maxLength="25"
-                        android:padding="10dp"
-                        android:textColorHint="#625757"
-                        android:hint="Search Location"
-                        android:singleLine="true" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.cardview.widget.CardView>
-
 
         <TextView
             android:id="@+id/city"
@@ -114,7 +113,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/splash_screen_animation"/>
+                app:lottie_rawRes="@raw/splash_screen_animation" />
 
             <TextView
                 android:id="@+id/type"
@@ -152,7 +151,7 @@
             android:id="@+id/max_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24.6°"
+            android:text="27.3°"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -171,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="27.3°"
+            android:text="24.6°"
             app:layout_constraintEnd_toEndOf="@+id/temp"
             app:layout_constraintTop_toBottomOf="@+id/temp" />
 
@@ -239,8 +238,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="15dp"
-            app:cardCornerRadius="25dp"
             android:alpha="0.5"
+            app:cardCornerRadius="25dp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -304,7 +303,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/sunrise_sunset_animation"/>
+                    app:lottie_rawRes="@raw/sunrise_sunset_animation" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -397,7 +396,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">                    >
+                    android:layout_height="match_parent">>
 
 
                     <ImageView
@@ -672,7 +671,7 @@
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" km"
+                        android:text="+ km"
                         app:layout_constraintEnd_toEndOf="@+id/visibility_icon"
                         app:layout_constraintStart_toEndOf="@id/visibility"
                         app:layout_constraintTop_toBottomOf="@+id/visibility_icon" />
@@ -744,7 +743,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/temperature_animation"/>
+                    app:lottie_rawRes="@raw/temperature_animation" />
 
 
                 <TextView
@@ -781,13 +780,13 @@
             android:layout_height="300dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation2"
@@ -795,8 +794,8 @@
             android:layout_height="500dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="fitCenter"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -809,12 +808,12 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="fitStart"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true" />
 
@@ -824,12 +823,12 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="fitStart"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true" />
 
@@ -839,14 +838,14 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation6"
@@ -854,26 +853,26 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:alpha="0.5"
-            android:visibility="gone"
             android:scaleType="fitStart"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/developer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="~Developed By Tejas Tidake"
-            android:gravity="center"
             android:layout_marginVertical="50dp"
+            android:gravity="center"
+            android:text="~Developed By Tejas Tidake"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

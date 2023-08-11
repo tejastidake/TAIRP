@@ -11,8 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -20,15 +18,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.location.LocationManagerCompat.isLocationEnabled
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
-import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.tejas.forecastzen.Model.ApiUtilities
@@ -37,17 +27,18 @@ import com.tejas.forecastzen.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    //    private lateinit var recyclerView: RecyclerView
+//    private lateinit var forecastAdapter: ForecastAdapter
     var n = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +58,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.day.text = SimpleDateFormat("EEE", Locale.getDefault()).format(currentDateTime)
 
-        binding.date.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDateTime)
+        binding.date.text =
+            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDateTime)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.apply {
@@ -89,15 +81,14 @@ class MainActivity : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // "Done" action was clicked on the keyboard
                 getCityWeather(binding.searchBar.text.toString())
-                true // Return true to indicate that you've handled the action
+                true // Returning true to indicate that we have handled the action
             } else {
-                false // Return false to indicate that you haven't handled the action
+                false // Returning false to indicate that we haven't handled the action
             }
         }
 
 
 
-//        Toast.makeText(this, "$hourOfDay", Toast.LENGTH_SHORT).show()
         when (calendar.get(Calendar.HOUR_OF_DAY)) {
             in 1..3 -> {
                 // MidNight
@@ -142,35 +133,41 @@ class MainActivity : AppCompatActivity() {
 
     private fun getCityWeather(cityName: String) {
 
-        ApiUtilities.getApiInterface()?.getCityWeatherData(cityName, API_KEY)?.enqueue(object : Callback<ModelClass>
-        {
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<ModelClass>, response: Response<ModelClass>) {
-                val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null) {
+
+        ApiUtilities.getApiInterface()?.getCityWeatherData(cityName, API_KEY)
+            ?.enqueue(object : Callback<ModelClass> {
+                @RequiresApi(Build.VERSION_CODES.O)
+                override fun onResponse(call: Call<ModelClass>, response: Response<ModelClass>) {
+                    val responseBody = response.body()
+                    if (response.isSuccessful && responseBody != null) {
 
 //                    below two lines are to hide keyboard in Activity
-                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                        val inputMethodManager =
+                            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 
-                    binding.searchBar.clearFocus()
-                    binding.searchBar.setText("")
+                        binding.searchBar.clearFocus()
+                        binding.searchBar.setText("")
 
-                    setDataOnViews(responseBody)
-                } else {
-                    // Showing toast for invalid city name
-                    Toast.makeText(applicationContext, "No Place Found", Toast.LENGTH_SHORT).show()
+                        setDataOnViews(responseBody)
 
+
+                    } else {
+                        // Showing toast for invalid city name
+                        Toast.makeText(applicationContext, "No Place Found", Toast.LENGTH_SHORT)
+                            .show()
+
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ModelClass>, t: Throwable) {
-                // Show toast for network error
-                Toast.makeText(applicationContext, "Network Error", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<ModelClass>, t: Throwable) {
+                    // Show toast for network error
+                    Toast.makeText(applicationContext, "Network Error", Toast.LENGTH_SHORT).show()
+                }
+            })
 
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -181,10 +178,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getCurrentLocation() {
 
-        if (checkPermissions())
-        {
-            if (isLocationEnabled())
-            {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
 //                Toast.makeText(this, "Location Enabled", Toast.LENGTH_SHORT).show()
 
                 if (ActivityCompat.checkSelfPermission(
@@ -199,39 +194,36 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
 
-                fusedLocationProviderClient.lastLocation.addOnCompleteListener(this){ task->
-                    val location: Location?=task.result
-                    if (location==null)
-                    {
-                        if (n<3) {
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener(this) { task ->
+                    val location: Location? = task.result
+                    if (location == null) {
+                        if (n < 3) {
                             Toast.makeText(this, "Loading...", Toast.LENGTH_LONG).show()
                             Handler().postDelayed({ getCurrentLocation() }, 4000)
                             n++
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Can't Get Current Location, Try Searching Instead",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                        else{
-                            Toast.makeText(this, "Can't Get Current Location, Try Searching Instead", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                    else
-                    {
+                    } else {
 //                        Toast.makeText(this, "Latitude: ${location.latitude}", Toast.LENGTH_SHORT).show()
 //                        Toast.makeText(this, "Longitude: ${location.longitude}", Toast.LENGTH_SHORT).show()
 //                        binding.progressBar.visibility = View.VISIBLE
-                        getCurrentLocationWeather(location.latitude.toString(), location.longitude.toString())
+                        getCurrentLocationWeather(
+                            location.latitude.toString(),
+                            location.longitude.toString()
+                        )
                     }
                 }
-            }
-
-            else
-            {
+            } else {
                 Toast.makeText(this, "Turn On Location", Toast.LENGTH_SHORT).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
-        }
-
-        else
-        {
+        } else {
             Toast.makeText(this, "Allow Access to Location", Toast.LENGTH_SHORT).show()
             requestPermission()
         }
@@ -241,19 +233,21 @@ class MainActivity : AppCompatActivity() {
     private fun getCurrentLocationWeather(latitude: String, longitude: String) {
 
 
-        ApiUtilities.getApiInterface()?.getCurrentWeatherData(latitude, longitude, API_KEY)?.enqueue(object : Callback<ModelClass>{
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<ModelClass>, response: Response<ModelClass>) {
-                if (response.isSuccessful){
-                    setDataOnViews(response.body())
+        ApiUtilities.getApiInterface()?.getCurrentWeatherData(latitude, longitude, API_KEY)
+            ?.enqueue(object : Callback<ModelClass> {
+                @RequiresApi(Build.VERSION_CODES.O)
+                override fun onResponse(call: Call<ModelClass>, response: Response<ModelClass>) {
+                    if (response.isSuccessful) {
+                        setDataOnViews(response.body())
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ModelClass>, t: Throwable) {
-                Toast.makeText(applicationContext, "Something Went Wrong", Toast.LENGTH_SHORT).show()
-            }
+                override fun onFailure(call: Call<ModelClass>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Something Went Wrong", Toast.LENGTH_SHORT)
+                        .show()
+                }
 
-        })
+            })
 
 
     }
@@ -277,7 +271,7 @@ class MainActivity : AppCompatActivity() {
         binding.fahrenheitTemp.text = String.format("%.1f°F", kelvinToFahrenheit(body!!.main.temp))
         binding.clouds.text = body.clouds.all.toString()
         binding.feelsLike.text = String.format("%.1f", kelvinToCelcius(body.main.feels_like))
-        binding.visibility.text = String.format("%.1f", (body.visibility)/1000.0)
+        binding.visibility.text = String.format("%.1f", (body.visibility) / 1000.0)
 
         setUi(body.weather[0].id)
 
@@ -536,43 +530,60 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun kelvinToFahrenheit(tempKelvin: Double): Double {
-        return tempKelvin * 9/5 - 459.67
+        return tempKelvin * 9 / 5 - 459.67
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun timeStampToLocalDate(timeStamp : Long) : String {
+    private fun timeStampToLocalDate(timeStamp: Long): String {
         val localTime = timeStamp.let {
             Instant.ofEpochSecond(it).atZone(ZoneId.systemDefault()).toLocalDateTime()
         }
-        val timeFormat = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT, applicationContext.resources.configuration.locales[0])
+        val timeFormat = SimpleDateFormat.getTimeInstance(
+            SimpleDateFormat.SHORT,
+            applicationContext.resources.configuration.locales[0]
+        )
         return timeFormat.format(Date.from(localTime.atZone(ZoneId.systemDefault()).toInstant()))
     }
 
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_ACCESS_LOCATION)
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_REQUEST_ACCESS_LOCATION
+        )
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
-    private fun checkPermissions(): Boolean
-    {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
-        {
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             return true
         }
         return false
     }
 
 
-    companion object
-    {
+    companion object {
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 100
         const val API_KEY = "318271193c50f9dd27aee84c78918d52"
+        const val Hourly_API_KEY = "11896dc7a5a1d27d069571d682a0e2c8"
     }
 
     override fun onRequestPermissionsResult(
@@ -582,16 +593,12 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode== PERMISSION_REQUEST_ACCESS_LOCATION)
-        {
-            if (grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED)
-            {
+        if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
 //                getCurrentLocation()
 
-            }
-            else
-            {
+            } else {
                 Toast.makeText(applicationContext, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }

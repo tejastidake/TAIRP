@@ -14,9 +14,9 @@
         <!-- Customize your theme here. -->
 
 
-<!--        <item name="android:statusBarColor" tools:targetApi="l">@color/statusBar</item>-->
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">@color/statusBar</item>-->
 
-<!--        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>-->
+        <!--        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>-->
 
     </style>
 </resources>

@@ -25,6 +25,8 @@
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/twilight_background.xml" value="0.199" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_splash_screen.xml" value="0.20260416666666667" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/future_forecast_itemview.xml" value="0.2015625" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/item_forecast.xml" value="0.2015625" />
       </map>
     </option>
   </component>
