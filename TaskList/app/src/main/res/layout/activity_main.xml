@@ -59,7 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Search"
-                            android:maxLength="25"
+                            android:maxLength="30"
                             android:padding="10dp"
                             android:singleLine="true"
                             android:textColorHint="#625757" />
@@ -103,7 +103,8 @@
         android:clipToPadding="false"
         android:paddingBottom="10dp"
         android:transitionGroup="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/task_itemview" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
