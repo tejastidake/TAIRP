@@ -7,9 +7,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import com.tejas.tasklist.DB.Task
 import com.tejas.tasklist.DB.TaskDatabase
 import com.tejas.tasklist.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
@@ -23,7 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setContentView(binding.root)
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Compatibility Issue")
+                .setMessage("This app requires at least Android API level 26.")
+                .setPositiveButton("Exit") { _, _ -> finish() }
+                .setCancelable(false)
+                .create()
+                .show()
+        }
 
 
         supportActionBar?.hide()
@@ -37,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        onResume()
+
 
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -67,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        swipeToDelete(binding.taskRecyclerView)
+
     }
 
     override fun onResume() {
@@ -84,6 +102,61 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun swipeToDelete(taskRecyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val deletedTaskPosition = viewHolder.adapterPosition
+                val deletedTask =
+                    (taskRecyclerView.adapter as TaskAdapter).list[deletedTaskPosition]
+
+                (taskRecyclerView.adapter as TaskAdapter).list.removeAt(deletedTaskPosition)
+                taskRecyclerView.adapter?.notifyDataSetChanged()
+
+                deleteTask(deletedTask)
+
+                val snackBar = Snackbar.make(taskRecyclerView, "Note Deleted", Snackbar.LENGTH_LONG)
+                    .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            super.onDismissed(transientBottomBar, event)
+                        }
+
+                        override fun onShown(transientBottomBar: Snackbar?) {
+
+                            transientBottomBar?.setAction("Undo") {
+                                lifecycleScope.launch {
+                                    TaskDatabase(applicationContext).getTaskDao()
+                                        .insertTask(deletedTask)
+                                    onResume()
+                                }
+
+                            }
+
+                            super.onShown(transientBottomBar)
+
+                        }
+                    }).apply {
+                        animationMode = Snackbar.ANIMATION_MODE_FADE
+                        anchorView = binding.addTask
+                    }
+                snackBar.show()
+
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(taskRecyclerView)
+
+    }
+
+
+    fun deleteTask(task: Task) {
+        lifecycleScope.launch {
+            TaskDatabase(applicationContext).getTaskDao().deleteTask(task)
+        }
     }
 
     fun emptyList() {

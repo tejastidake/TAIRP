@@ -20,6 +20,10 @@ class NotesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotesBinding
 
+    var id: Int = -1
+    var titleInfo: String = ""
+    var descInfo: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +49,37 @@ class NotesActivity : AppCompatActivity() {
         val inputMethodManager: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.titleEditText, InputMethodManager.SHOW_IMPLICIT)
+
+
+
+
+        titleInfo = intent.getStringExtra("title").toString()
+        descInfo = intent.getStringExtra("desc").toString()
+
+        val clickedTaskId = intent.getIntExtra("clicked_task", -1)
+
+        if (clickedTaskId != -1) {
+
+            id = clickedTaskId
+
+            binding.titleEditText.setText(titleInfo)
+            binding.descEditText.setText(descInfo)
+
+            binding.topNewText.text = "Update Task/Note"
+
+            binding.deleteBtn.visibility = View.VISIBLE
+
+        }
+
+
+
+        binding.deleteBtn.setOnClickListener {
+            lifecycleScope.launch {
+                TaskDatabase(applicationContext).getTaskDao().deleteTask(Task(id))
+                Toast.makeText(applicationContext, "Deleted", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
 
 
 
@@ -100,17 +135,37 @@ class NotesActivity : AppCompatActivity() {
         val date = SimpleDateFormat("yy/MM/dd", Locale.getDefault()).format(currentDateTime)
 
 
-        lifecycleScope.launch {
-            TaskDatabase(applicationContext).getTaskDao().insertTask(
-                Task(
-                    0,
-                    "${binding.titleEditText.text.trim()}",
-                    "${binding.descEditText.text.trim()}",
-                    "$date, $time"
+        if (id == -1) {
+
+            lifecycleScope.launch {
+                TaskDatabase(applicationContext).getTaskDao().insertTask(
+                    Task(
+                        0,
+                        "${binding.titleEditText.text.trim()}",
+                        "${binding.descEditText.text.trim()}",
+                        "$date, $time"
+                    )
                 )
-            )
-            Toast.makeText(applicationContext, "Saved", Toast.LENGTH_SHORT).show()
-            finish()
+                Toast.makeText(applicationContext, "Saved", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+
+
+        } else {
+
+            lifecycleScope.launch {
+                TaskDatabase(applicationContext).getTaskDao().updateTask(
+                    Task(
+                        id,
+                        binding.titleEditText.text.toString().trim(),
+                        binding.descEditText.text.toString().trim(),
+                        "$date, $time | Edited"
+                    )
+                )
+                Toast.makeText(applicationContext, "Updated", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+
         }
 
     }
