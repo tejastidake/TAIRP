@@ -23,14 +23,14 @@
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/sunrise_background.xml" value="0.21" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/thunder_background.xml" value="0.21" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/drawable/twilight_background.xml" value="0.199" />
-        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/activity_splash_screen.xml" value="0.20260416666666667" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/future_forecast_itemview.xml" value="0.2015625" />
         <entry key="..\:/Projects/AndroidStudioProjects/TAIRP/ForecastZen/app/src/main/res/layout/item_forecast.xml" value="0.2015625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

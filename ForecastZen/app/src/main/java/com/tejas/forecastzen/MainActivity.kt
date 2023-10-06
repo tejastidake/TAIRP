@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
+import android.telecom.Call
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -37,8 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-    //    private lateinit var recyclerView: RecyclerView
-//    private lateinit var forecastAdapter: ForecastAdapter
     var n = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +70,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val currentTimeMillis = System.currentTimeMillis()
-
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = currentTimeMillis
-
 
         binding.searchBar.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -88,12 +82,30 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        setTime()
+
+    }
+
+    private fun setTime() {
+
+        val currentTimeMillis = System.currentTimeMillis()
+
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = currentTimeMillis
+
 
         when (calendar.get(Calendar.HOUR_OF_DAY)) {
-            in 1..3 -> {
+            in 0..3 -> {
                 // MidNight
                 binding.backgroundColor.setBackgroundResource(R.drawable.midnight_background)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+                val night = binding.animation6
+                night.visibility = View.VISIBLE
+                night.setAnimation(R.raw.night_animation)
+                night.playAnimation()
+
             }
             in 4..6 -> {
                 // Sunrise
@@ -126,9 +138,14 @@ class MainActivity : AppCompatActivity() {
                 // Night
                 binding.backgroundColor.setBackgroundResource(R.drawable.night_background)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+                val night = binding.animation6
+                night.visibility = View.VISIBLE
+                night.setAnimation(R.raw.night_animation)
+                night.playAnimation()
             }
         }
-
     }
 
     private fun getCityWeather(cityName: String) {
@@ -287,6 +304,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val thunderstorm = binding.animation3
                 thunderstorm.visibility = View.VISIBLE
                 thunderstorm.setAnimation(R.raw.thunderstorm_animation)
@@ -306,6 +325,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val thunderstorm = binding.animation3
                 thunderstorm.visibility = View.VISIBLE
                 thunderstorm.setAnimation(R.raw.thunderstorm_animation)
@@ -320,6 +341,8 @@ class MainActivity : AppCompatActivity() {
                 // light rain
 
                 clearAnimations()
+
+                setTime()
 
                 val light_rain = binding.animation5
                 light_rain.visibility = View.VISIBLE
@@ -337,6 +360,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val heavy_rain = binding.animation5
                 heavy_rain.visibility = View.VISIBLE
                 heavy_rain.setAnimation(R.raw.rain_animation)
@@ -352,6 +377,8 @@ class MainActivity : AppCompatActivity() {
                 // light rain
 
                 clearAnimations()
+
+                setTime()
 
                 val light_rain = binding.animation5
                 light_rain.visibility = View.VISIBLE
@@ -369,6 +396,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val heavy_rain = binding.animation5
                 heavy_rain.visibility = View.VISIBLE
                 heavy_rain.setAnimation(R.raw.rain_animation)
@@ -385,6 +414,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val snow = binding.animation4
                 snow.visibility = View.VISIBLE
                 snow.setAnimation(R.raw.snow_animation)
@@ -399,6 +430,8 @@ class MainActivity : AppCompatActivity() {
                 // snow & light rain
 
                 clearAnimations()
+
+                setTime()
 
                 val snow = binding.animation4
                 snow.visibility = View.VISIBLE
@@ -421,6 +454,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val snow = binding.animation4
                 snow.visibility = View.VISIBLE
                 snow.setAnimation(R.raw.snow_animation)
@@ -442,6 +477,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val animation = binding.animation
                 animation.setAnimation(R.raw.icon_clear)
                 animation.playAnimation()
@@ -451,6 +488,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val animation = binding.animation
                 animation.setAnimation(R.raw.icon_clear)
                 animation.playAnimation()
@@ -459,6 +498,8 @@ class MainActivity : AppCompatActivity() {
                 // slow clouds
 
                 clearAnimations()
+
+                setTime()
 
                 val slow_clouds = binding.animation1
                 slow_clouds.visibility = View.VISIBLE
@@ -477,6 +518,8 @@ class MainActivity : AppCompatActivity() {
 
                 clearAnimations()
 
+                setTime()
+
                 val clouds = binding.animation1
                 clouds.visibility = View.VISIBLE
                 clouds.setAnimation(R.raw.clouds_animation)
@@ -490,6 +533,8 @@ class MainActivity : AppCompatActivity() {
                 // fast clouds
 
                 clearAnimations()
+
+                setTime()
 
                 val fast_clouds = binding.animation1
                 fast_clouds.visibility = View.VISIBLE
@@ -583,8 +628,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 100
         const val API_KEY = "318271193c50f9dd27aee84c78918d52"
-        const val Hourly_API_KEY = "11896dc7a5a1d27d069571d682a0e2c8"
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
